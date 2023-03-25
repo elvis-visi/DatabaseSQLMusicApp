@@ -36,8 +36,12 @@ namespace DatabaseSQLMusicApp
             dataGridView1.DataSource = albumsBindingSource;
         }
 
+        //event handler when user clicks on a cell of dataGridView1
+        // sender  is the object that raised the event (in this case, the DataGridView control)
+        //e provides information about the cell that was clicked (such as its row and column indices).
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //casts the sender object to a DataGridView control so that it can be manipulated in code.
             DataGridView dataGridView =(DataGridView) sender;
 
             //get the row number clicked
@@ -45,9 +49,10 @@ namespace DatabaseSQLMusicApp
             int rowClicked = dataGridView.CurrentRow.Index; // the selected row
            // MessageBox.Show("You clicked row" + rowClicked);
 
+            //get the 4th column value of the currently clicked row
             String imageUrl = dataGridView.Rows[rowClicked].Cells[4].Value.ToString();
 
-            // MessageBox.Show("Url " + imageUrl);
+            //load the imageUrl to the pictureBox
             pictureBox1.Load(imageUrl);
         }
 
