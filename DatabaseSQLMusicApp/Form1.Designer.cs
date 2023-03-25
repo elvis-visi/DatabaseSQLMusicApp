@@ -32,7 +32,9 @@
             dataGridView1 = new DataGridView();
             button2 = new Button();
             textBox1 = new TextBox();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -48,12 +50,15 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(226, 99);
+            dataGridView1.Location = new Point(257, 100);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 29;
             dataGridView1.Size = new Size(852, 224);
             dataGridView1.TabIndex = 1;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+           
+
             // 
             // button2
             // 
@@ -72,11 +77,21 @@
             textBox1.Size = new Size(409, 27);
             textBox1.TabIndex = 3;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(55, 100);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(187, 224);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 4;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 450);
+            Controls.Add(pictureBox1);
             Controls.Add(textBox1);
             Controls.Add(button2);
             Controls.Add(dataGridView1);
@@ -84,6 +99,7 @@
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +110,6 @@
         private DataGridView dataGridView1;
         private Button button2;
         private TextBox textBox1;
+        private PictureBox pictureBox1;
     }
 }
