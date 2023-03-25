@@ -49,6 +49,48 @@ namespace DatabaseSQLMusicApp
         }
 
 
+        public List<Album> searchTitles(String searchTerm)
+        {
+            List<Album> returnThese = new List<Album>();
+
+            //connect to the mysql server
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            String searchWildPhrase = "%" + searchTerm + "%";
+            //define the sql statement to fetch all albums.  @search -  parameter query, avoid sql injections
+            MySqlCommand command = new MySqlCommand();
+           
+            command.CommandText = "select ID, ALBUM_TITLE, ARTIST, YEAR, IMAGE_NAME, DESCRIPTION FROM ALBUMS where ALBUM_TITLE LIKE @search";
+            command.Parameters.AddWithValue("@search", searchWildPhrase);
+            command.Connection = connection;    
+           
+            //reader to 
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    Album album = new Album
+                    {
+                        ID = reader.GetInt32(0),
+                        AlbumName = reader.GetString(1),
+                        ArtistName = reader.GetString(2),
+                        Year = reader.GetInt32(3),
+                        ImageUrl = reader.GetString(4),
+                        Description = reader.GetString(5),
+                    };
+                    returnThese.Add(album);
+
+                }
+
+            }
+            connection.Close();
+
+            return returnThese;
+
+        }
+
 
     }
 }
