@@ -11,7 +11,7 @@ namespace DatabaseSQLMusicApp
     {
         public int ID { get; set; } 
         public string AlbumName { get; set; }               
-        public string ArtistName { get;}
+        public string ArtistName { get; set; }
         public int Year { get; set; }
 
         public string ImageUrl { get; set; }
