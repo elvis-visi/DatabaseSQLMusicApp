@@ -22,5 +22,16 @@ namespace DatabaseSQLMusicApp
             dataGridView1.DataSource = albumsBindingSource;
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+
+            
+            albumsBindingSource.DataSource = albumsDAO.searchTitles(textBox1.Text);
+
+          
+            dataGridView1.DataSource = albumsBindingSource;
+        }
     }
 }
