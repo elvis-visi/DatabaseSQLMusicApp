@@ -42,12 +42,12 @@ namespace DatabaseSQLMusicApp
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //casts the sender object to a DataGridView control so that it can be manipulated in code.
-            DataGridView dataGridView =(DataGridView) sender;
+            DataGridView dataGridView = (DataGridView)sender;
 
             //get the row number clicked
 
             int rowClicked = dataGridView.CurrentRow.Index; // the selected row
-           // MessageBox.Show("You clicked row" + rowClicked);
+                                                            // MessageBox.Show("You clicked row" + rowClicked);
 
             //get the 4th column value of the currently clicked row
             String imageUrl = dataGridView.Rows[rowClicked].Cells[4].Value.ToString();
@@ -57,5 +57,25 @@ namespace DatabaseSQLMusicApp
         }
 
 
+
+        private void Add_Click(object sender, EventArgs e)
+        {
+            //add a new item to the database
+            Album album = new Album
+            {
+                AlbumName = txt_albumName.Text,
+                ArtistName = txt_albumArtist.Text,
+                Year = Int32.Parse(txt_Year.Text),
+                ImageUrl = txt_ImageURL.Text,
+                Description = txt_description.Text
+            };
+
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+            int result = albumsDAO.addOneAlbum(album);
+            MessageBox.Show(result + " new rows(s) inserted");
+
+
+        }
     }
+
 }
