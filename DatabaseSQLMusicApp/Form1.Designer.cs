@@ -33,8 +33,21 @@
             button2 = new Button();
             textBox1 = new TextBox();
             pictureBox1 = new PictureBox();
+            groupBox1 = new GroupBox();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            txt_albumName = new TextBox();
+            txt_albumArtist = new TextBox();
+            txt_Year = new TextBox();
+            txt_ImageURL = new TextBox();
+            txt_description = new TextBox();
+            Add = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
@@ -50,15 +63,13 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(257, 100);
+            dataGridView1.Location = new Point(310, 86);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 29;
-            dataGridView1.Size = new Size(852, 224);
+            dataGridView1.Size = new Size(788, 191);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += dataGridView1_CellClick;
-           
-
             // 
             // button2
             // 
@@ -79,18 +90,131 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(55, 100);
+            pictureBox1.Location = new Point(1117, 86);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(187, 224);
+            pictureBox1.Size = new Size(164, 191);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(Add);
+            groupBox1.Controls.Add(txt_description);
+            groupBox1.Controls.Add(txt_ImageURL);
+            groupBox1.Controls.Add(txt_Year);
+            groupBox1.Controls.Add(txt_albumArtist);
+            groupBox1.Controls.Add(txt_albumName);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Location = new Point(37, 95);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(267, 223);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Add Album";
+           
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(30, 23);
+            label1.Name = "label1";
+            label1.Size = new Size(97, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Album Name";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(30, 50);
+            label2.Name = "label2";
+            label2.Size = new Size(44, 20);
+            label2.TabIndex = 1;
+            label2.Text = "Artist";
+          
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(30, 77);
+            label3.Name = "label3";
+            label3.Size = new Size(37, 20);
+            label3.TabIndex = 2;
+            label3.Text = "Year";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(30, 104);
+            label4.Name = "label4";
+            label4.Size = new Size(77, 20);
+            label4.TabIndex = 3;
+            label4.Text = "ImageURL";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(30, 131);
+            label5.Name = "label5";
+            label5.Size = new Size(85, 20);
+            label5.TabIndex = 4;
+            label5.Text = "Description";
+            // 
+            // txt_albumName
+            // 
+            txt_albumName.Location = new Point(133, 20);
+            txt_albumName.Name = "txt_albumName";
+            txt_albumName.Size = new Size(125, 27);
+            txt_albumName.TabIndex = 5;
+            // 
+            // txt_albumArtist
+            // 
+            txt_albumArtist.Location = new Point(133, 50);
+            txt_albumArtist.Name = "txt_albumArtist";
+            txt_albumArtist.Size = new Size(125, 27);
+            txt_albumArtist.TabIndex = 6;
+            // 
+            // txt_Year
+            // 
+            txt_Year.Location = new Point(133, 80);
+            txt_Year.Name = "txt_Year";
+            txt_Year.Size = new Size(125, 27);
+            txt_Year.TabIndex = 7;
+            // 
+            // txt_ImageURL
+            // 
+            txt_ImageURL.Location = new Point(133, 110);
+            txt_ImageURL.Name = "txt_ImageURL";
+            txt_ImageURL.Size = new Size(125, 27);
+            txt_ImageURL.TabIndex = 8;
+            // 
+            // txt_description
+            // 
+            txt_description.Location = new Point(133, 140);
+            txt_description.Name = "txt_description";
+            txt_description.Size = new Size(125, 27);
+            txt_description.TabIndex = 9;
+            // 
+            // Add
+            // 
+            Add.Location = new Point(31, 176);
+            Add.Name = "Add";
+            Add.Size = new Size(94, 29);
+            Add.TabIndex = 10;
+            Add.Text = "Add";
+            Add.UseVisualStyleBackColor = true;
+            Add.Click += Add_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1370, 450);
+            Controls.Add(groupBox1);
             Controls.Add(pictureBox1);
             Controls.Add(textBox1);
             Controls.Add(button2);
@@ -100,6 +224,8 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -111,5 +237,17 @@
         private Button button2;
         private TextBox textBox1;
         private PictureBox pictureBox1;
+        private GroupBox groupBox1;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private Button Add;
+        private TextBox txt_description;
+        private TextBox txt_ImageURL;
+        private TextBox txt_Year;
+        private TextBox txt_albumArtist;
+        private TextBox txt_albumName;
+        private Label label5;
+        private Label label4;
     }
 }
