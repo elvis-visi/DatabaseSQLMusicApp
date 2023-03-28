@@ -2,8 +2,9 @@ namespace DatabaseSQLMusicApp
 {
     public partial class Form1 : Form
     {
-        //will serve as the data source for a DataGridView control on the form.
+        // BindingSource objects are used to bind data to controls like DataGridView.
         BindingSource albumsBindingSource = new BindingSource();
+        BindingSource trackBindingSource = new BindingSource();
         public Form1()
         {
             InitializeComponent();
@@ -16,6 +17,7 @@ namespace DatabaseSQLMusicApp
             //The DataSource property of the albumsBindingSource object is then set to this List<Album> object. 
             // albumsBindingSource object now contains a reference to the list of album objects retrieved from the data source.
             albumsBindingSource.DataSource = albumsDAO.getAllAlbums();
+            
 
             //The DataGridView control will automatically create columns for each public property of the Album
             //class and display the data in the corresponding rows.
@@ -54,6 +56,14 @@ namespace DatabaseSQLMusicApp
 
             //load the imageUrl to the pictureBox
             pictureBox1.Load(imageUrl);
+
+
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+
+            trackBindingSource.DataSource = albumsDAO.getTracksForAlbum((int)dataGridView.Rows[rowClicked].Cells[0].Value);
+
+
+            dataGridView2.DataSource = trackBindingSource;
         }
 
 
@@ -74,6 +84,11 @@ namespace DatabaseSQLMusicApp
             int result = albumsDAO.addOneAlbum(album);
             MessageBox.Show(result + " new rows(s) inserted");
 
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
 
         }
     }
