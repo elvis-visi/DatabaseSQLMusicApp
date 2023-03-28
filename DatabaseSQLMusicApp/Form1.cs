@@ -5,6 +5,8 @@ namespace DatabaseSQLMusicApp
         // BindingSource objects are used to bind data to controls like DataGridView.
         BindingSource albumsBindingSource = new BindingSource();
         BindingSource trackBindingSource = new BindingSource();
+
+        List <Album>  albums = new List<Album> ();
         public Form1()
         {
             InitializeComponent();
@@ -14,10 +16,12 @@ namespace DatabaseSQLMusicApp
         {
             AlbumsDAO albumsDAO = new AlbumsDAO();
 
+            albums = albumsDAO.getAllAlbums();
+
             //The DataSource property of the albumsBindingSource object is then set to this List<Album> object. 
             // albumsBindingSource object now contains a reference to the list of album objects retrieved from the data source.
-            albumsBindingSource.DataSource = albumsDAO.getAllAlbums();
-            
+
+            albumsBindingSource.DataSource = albums;
 
             //The DataGridView control will automatically create columns for each public property of the Album
             //class and display the data in the corresponding rows.
@@ -58,10 +62,10 @@ namespace DatabaseSQLMusicApp
             pictureBox1.Load(imageUrl);
 
 
-            AlbumsDAO albumsDAO = new AlbumsDAO();
+
 
             //List of Tracks is returned and the list is set as the data Source for the trackBindingSource object
-            trackBindingSource.DataSource = albumsDAO.getTracksUsingJoin((int)dataGridView.Rows[rowClicked].Cells[0].Value);
+            trackBindingSource.DataSource = albums[rowClicked].Tracks;
 
             //dataGridView2's Datasource is set to the trackBindingSource object, which causes
             //the DataGridView to display the data contained in the list of tracks

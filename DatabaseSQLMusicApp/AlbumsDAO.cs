@@ -39,6 +39,8 @@ namespace DatabaseSQLMusicApp
                         ImageUrl = reader.GetString(4), 
                         Description = reader.GetString(5),
                     };
+
+                    album.Tracks = getTracksForAlbum(album.ID);
                     returnThese.Add(album);
 
                 }
@@ -184,7 +186,6 @@ namespace DatabaseSQLMusicApp
             using (MySqlDataReader reader = command.ExecuteReader())
             {
              
-
                 while (reader.Read())
                 {
                     JObject newTrack = new JObject();
@@ -193,13 +194,9 @@ namespace DatabaseSQLMusicApp
                     {
                         //column name - column value
                         newTrack.Add(reader.GetName(i).ToString(), reader.GetValue(i).ToString());
-                       
-
                     }
 
-
                     returnThese.Add(newTrack);
-
                 }
 
             }
