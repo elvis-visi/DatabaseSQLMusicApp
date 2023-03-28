@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -152,6 +153,52 @@ namespace DatabaseSQLMusicApp
 
                     };
                     returnThese.Add(t);
+
+                }
+
+            }
+            connection.Close();
+
+            return returnThese;
+
+        }
+
+
+        public List<JObject> getTracksUsingJoin(int albumID)
+        {
+            List<JObject> returnThese = new List<JObject>();
+
+            //connect to the mysql server
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+
+            //define the sql statement to fetch all albums.  @search -  parameter query, avoid sql injections
+            MySqlCommand command = new MySqlCommand();
+
+            command.CommandText = "SELECT tracks.ID as trackID, albums.ALBUM_TITLE, `track_title`,  `video_url`, `lyrics` FROM `tracks` JOIN albums ON albums_ID = albums.id WHERE albums_ID = @albumid";
+            command.Parameters.AddWithValue("@albumid", albumID);
+            command.Connection = connection;
+
+            //reader to 
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+             
+
+                while (reader.Read())
+                {
+                    JObject newTrack = new JObject();
+                    //FiedCount how many columns in a row
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        //column name - column value
+                        newTrack.Add(reader.GetName(i).ToString(), reader.GetValue(i).ToString());
+                       
+
+                    }
+
+
+                    returnThese.Add(newTrack);
 
                 }
 

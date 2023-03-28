@@ -60,9 +60,11 @@ namespace DatabaseSQLMusicApp
 
             AlbumsDAO albumsDAO = new AlbumsDAO();
 
-            trackBindingSource.DataSource = albumsDAO.getTracksForAlbum((int)dataGridView.Rows[rowClicked].Cells[0].Value);
+            //List of Tracks is returned and the list is set as the data Source for the trackBindingSource object
+            trackBindingSource.DataSource = albumsDAO.getTracksUsingJoin((int)dataGridView.Rows[rowClicked].Cells[0].Value);
 
-
+            //dataGridView2's Datasource is set to the trackBindingSource object, which causes
+            //the DataGridView to display the data contained in the list of tracks
             dataGridView2.DataSource = trackBindingSource;
         }
 
