@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace DatabaseSQLMusicApp
 {
@@ -118,5 +119,49 @@ namespace DatabaseSQLMusicApp
 
             return newRows;
         }
+
+        public List<Track> getTracksForAlbum(int albumID)
+        {
+            List<Track> returnThese = new List<Track>();
+
+            //connect to the mysql server
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+           
+            //define the sql statement to fetch all albums.  @search -  parameter query, avoid sql injections
+            MySqlCommand command = new MySqlCommand();
+
+            command.CommandText = "select * FROM tracks where albums_ID = @albumid";
+            command.Parameters.AddWithValue("@albumid", albumID);
+            command.Connection = connection;
+
+            //reader to 
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+
+                    Track t = new Track
+                    {
+                        ID = reader.GetInt32(0),
+                        Name = reader.GetString(1), 
+                        Number = reader.GetInt32(2),
+                        videoURL = reader.GetString(3),
+                        lyrics = reader.GetString(4),
+
+                    };
+                    returnThese.Add(t);
+
+                }
+
+            }
+            connection.Close();
+
+            return returnThese;
+
+        }
+
+
     }
 }
