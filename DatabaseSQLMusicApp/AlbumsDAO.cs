@@ -206,6 +206,26 @@ namespace DatabaseSQLMusicApp
 
         }
 
+        internal int deleteTrack(int trackID)
+        {
+            //connect to the mysql server
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
 
+            //define the sql statement to fetch all albums
+            MySqlCommand command = new MySqlCommand("DELETE FROM `tracks` WHERE `tracks`.`ID` = @trackID;", connection);
+
+            // @artist,@year,@imageURL,@description
+            command.Parameters.AddWithValue("@trackID", trackID);
+
+           
+
+            int result = command.ExecuteNonQuery();
+
+            connection.Close();
+
+            return result;
+
+        }
     }
 }

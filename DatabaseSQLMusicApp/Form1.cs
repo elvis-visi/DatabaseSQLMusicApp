@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace DatabaseSQLMusicApp
 {
     public partial class Form1 : Form
@@ -6,7 +8,7 @@ namespace DatabaseSQLMusicApp
         BindingSource albumsBindingSource = new BindingSource();
         BindingSource trackBindingSource = new BindingSource();
 
-        List <Album>  albums = new List<Album> ();
+        List<Album> albums = new List<Album>();
         public Form1()
         {
             InitializeComponent();
@@ -97,6 +99,29 @@ namespace DatabaseSQLMusicApp
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //get the row number clicked
+
+            int rowClicked = dataGridView2.CurrentRow.Index; // the selected row
+
+            //get the 4th column value of the currently clicked row
+            int trackID = (int)dataGridView2.Rows[rowClicked].Cells[0].Value;
+
+            MessageBox.Show("ID of track : " + trackID);
+
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+
+            int result = albumsDAO.deleteTrack(trackID); //1 row affected
+
+            //after deletion delete the data Source, then reload the albums
+            dataGridView2.DataSource = null;
+            albums = albumsDAO.getAllAlbums();  
+
+           
+        }
+
     }
 
 }
