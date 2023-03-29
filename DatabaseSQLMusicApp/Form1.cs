@@ -89,11 +89,37 @@ namespace DatabaseSQLMusicApp
             };
 
             AlbumsDAO albumsDAO = new AlbumsDAO();
-            int result = albumsDAO.addOneAlbum(album);
-            MessageBox.Show(result + " new rows(s) inserted");
+            //if checkBox is checked we want to update an album. Edit Album button has been clicked.
+            if (checkBox1.Checked)
+            {
+                int albumID = int.Parse(label_albumID.Text);
+                int result = albumsDAO.updateAlbum(album, albumID);
+                MessageBox.Show(result + " row(s) updated");
 
+            }
+            else  // Adding a new album
+            {
+                int result = albumsDAO.addOneAlbum(album);
+                MessageBox.Show(result + " new row(s) inserted");
+            }
+
+            //clear all the fields
+            txt_albumArtist.Clear();
+            txt_Year.Clear();
+            txt_albumName.Clear();
+            txt_description.Clear();
+            txt_ImageURL.Clear();
+            label_albumID.Text = "";
+            checkBox1.Checked = false;
+
+            //refresh the displayed list of albums in dataGridView1, and clear the dataGridView2 display.
+            albums = albumsDAO.getAllAlbums();
+            dataGridView1.DataSource = albums;
+            dataGridView2.DataSource = null;
 
         }
+
+
 
         private void label6_Click(object sender, EventArgs e)
         {
@@ -117,11 +143,45 @@ namespace DatabaseSQLMusicApp
 
             //after deletion delete the data Source, then reload the albums
             dataGridView2.DataSource = null;
-            albums = albumsDAO.getAllAlbums();  
+            albums = albumsDAO.getAllAlbums();
 
-           
+
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+        //album edit  Add Album textboxes get filled with the corresponding content of the clicked album
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int rowClicked = dataGridView1.CurrentRow.Index;
+
+            Album editMe = albums[rowClicked];
+            txt_albumName.Text = editMe.AlbumName;
+            txt_albumArtist.Text = editMe.ArtistName;
+            txt_Year.Text = editMe.Year.ToString();
+            txt_ImageURL.Text = editMe.ImageUrl;
+            txt_description.Text = editMe.Description;
+
+            checkBox1.Checked = true;
+            label_albumID.Text = editMe.ID.ToString();
+        }
     }
 
 }
