@@ -123,6 +123,34 @@ namespace DatabaseSQLMusicApp
             return newRows;
         }
 
+        internal int updateAlbum(Album album, int albumID) {
+
+             MySqlConnection connection = new MySqlConnection(connectionString);
+             connection.Open();
+
+             // define the sql statement to update the album with the corresponding albumID
+              MySqlCommand command = new MySqlCommand("UPDATE `albums` SET `ALBUM_TITLE` = @albumtitle, `ARTIST` = @artist, `YEAR` = @year, `IMAGE_NAME` = @imageURL, `DESCRIPTION` = @description WHERE `albums`.`ID` = @albumID;", connection);
+
+            command.Parameters.AddWithValue("@albumtitle", album.AlbumName);
+
+            command.Parameters.AddWithValue("@artist", album.ArtistName);
+
+            command.Parameters.AddWithValue("@year", album.Year);
+
+            command.Parameters.AddWithValue("@imageURL", album.ImageUrl);
+
+            command.Parameters.AddWithValue("@description", album.Description);
+
+            command.Parameters.AddWithValue("@albumID", albumID);
+
+            int updatedRows = command.ExecuteNonQuery();
+            connection.Close();
+
+            //return number of updated rows
+            return updatedRows;
+
+        }
+
         public List<Track> getTracksForAlbum(int albumID)
         {
             List<Track> returnThese = new List<Track>();
@@ -227,5 +255,9 @@ namespace DatabaseSQLMusicApp
             return result;
 
         }
+
+
+
+
     }
 }
