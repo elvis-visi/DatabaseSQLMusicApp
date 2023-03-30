@@ -201,9 +201,21 @@ namespace DatabaseSQLMusicApp
             };
 
             AlbumsDAO albumsDAO = new AlbumsDAO();
-            // create new track
-            int result = albumsDAO.newTrack(newTrack);
-            MessageBox.Show(result + " items inserted");
+
+            //if checked edit selected, update track
+            if (check_editTrack.Checked)
+            {
+                int updateTrackID = int.Parse(label_trackID.Text);
+                int result = albumsDAO.updateTrack(newTrack, updateTrackID);
+
+                MessageBox.Show(result + " items updated");
+            }
+            else
+            {
+                // create new track
+                int result = albumsDAO.newTrack(newTrack);
+                MessageBox.Show(result + " items inserted");
+            }
 
             albums = albumsDAO.getAllAlbums();
             albumsBindingSource.ResetBindings(false); //refersh
@@ -223,6 +235,38 @@ namespace DatabaseSQLMusicApp
             combo_albumID.SelectedIndex = 0;
         }
 
+        //Edit track
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+            int albumSelected = dataGridView1.CurrentRow.Index;
+            // MessageBox.Show("You clicked row " + rowClicked);
+
+            int trackSelected = dataGridView2.CurrentRow.Index;
+
+            Track editMe = albums[albumSelected].Tracks[trackSelected];
+            txt_trackTitle.Text = editMe.Name;
+            txt_trackNumber.Text = editMe.Number.ToString();
+            txt_videoURL.Text = editMe.videoURL;
+            txt_trackLyrics.Text = editMe.lyrics;
+
+
+            //checkBox1.Checked = true;
+            //label_albumID.Text = editMe.ID.ToString();
+
+            check_editTrack.Checked = true;
+            label_trackID.Text = editMe.ID.ToString();
+
+            combo_albumID.Items.Clear();
+
+            foreach (Album album in albums)
+            {
+                combo_albumID.Items.Add(album);
+
+            }
+            combo_albumID.SelectedIndex = albumSelected;
+
+        }
     }
 
 }
