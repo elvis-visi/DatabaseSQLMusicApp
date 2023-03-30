@@ -256,7 +256,30 @@ namespace DatabaseSQLMusicApp
 
         }
 
+        internal int newTrack(Track newTrack)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
 
+            // define the sql statement to fetch all albums
+            MySqlCommand command = new MySqlCommand("INSERT INTO `tracks` (`ID`, `track_title`, `number`, `video_url`, `lyrics`, `albums_ID`) VALUES (NULL, @trackTitle, @trackNumber, @trackURL, @lyrics, @albumID);", connection);
+           
+            command.Parameters.AddWithValue("@trackTitle", newTrack.Name);
+
+            command.Parameters.AddWithValue("@trackNumber", newTrack.Number);
+
+            command.Parameters.AddWithValue("@trackURL", newTrack.videoURL);
+
+            command.Parameters.AddWithValue("@lyrics", newTrack.lyrics);
+
+            command.Parameters.AddWithValue("@albumID", newTrack.AlbumID);
+
+            int newRows = command.ExecuteNonQuery();
+            connection.Close();
+
+            return newRows;
+
+        }
 
 
     }

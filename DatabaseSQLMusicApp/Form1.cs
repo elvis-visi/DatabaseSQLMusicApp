@@ -1,4 +1,5 @@
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DatabaseSQLMusicApp
 {
@@ -182,6 +183,46 @@ namespace DatabaseSQLMusicApp
             checkBox1.Checked = true;
             label_albumID.Text = editMe.ID.ToString();
         }
+
+        //Add/update track
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            // selected album, to which we will add the track
+            Album albumSelected = (Album)combo_albumID.SelectedItem;
+
+            Track newTrack = new Track
+            {
+                Name = txt_trackTitle.Text,
+                lyrics = txt_trackLyrics.Text,
+                Number = int.Parse(txt_trackNumber.Text),
+                videoURL = txt_videoURL.Text,
+                AlbumID = albumSelected.ID,
+            };
+
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+            // create new track
+            int result = albumsDAO.newTrack(newTrack);
+            MessageBox.Show(result + " items inserted");
+
+            albums = albumsDAO.getAllAlbums();
+            albumsBindingSource.ResetBindings(false); //refersh
+            dataGridView2.DataSource = null;
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AlbumsDAO albumsDAO = new AlbumsDAO();
+            albums = albumsDAO.getAllAlbums();
+            foreach (Album album in albums)
+            {
+                combo_albumID.Items.Add(album);
+
+            }
+            combo_albumID.SelectedIndex = 0;
+        }
+
     }
 
 }
