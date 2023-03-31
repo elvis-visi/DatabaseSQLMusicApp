@@ -267,6 +267,34 @@ namespace DatabaseSQLMusicApp
             combo_albumID.SelectedIndex = albumSelected;
 
         }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+
+            // get the row number clicked
+
+            int rowClicked = dataGridView.CurrentRow.Index;
+            // MessageBox.Show("You clicked row " + rowClicked);
+
+            String videoURL = dataGridView.Rows[rowClicked].Cells[3].Value.ToString();
+
+
+            //  MessageBox.Show("URL=" + imageURL);
+            try
+            {
+                webView21.Source = new Uri(videoURL);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void webView21_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
